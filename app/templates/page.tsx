@@ -26,8 +26,14 @@ export default function TemplatesPage() {
               ))}
             </div>
             <Link
+              href={`/templates/${t.slug}`}
+              className="mt-4 rounded-xl bg-zinc-800 py-2 text-center text-sm font-semibold text-zinc-200 hover:bg-zinc-700"
+            >
+              View details →
+            </Link>
+            <Link
               href={`/?prompt=${encodeURIComponent(t.prompt)}`}
-              className="mt-4 rounded-xl bg-emerald-600 py-2 text-center text-sm font-semibold text-white hover:bg-emerald-500"
+              className="mt-2 rounded-xl bg-emerald-600 py-2 text-center text-sm font-semibold text-white hover:bg-emerald-500"
             >
               Use template →
             </Link>
