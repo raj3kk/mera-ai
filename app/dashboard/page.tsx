@@ -12,6 +12,15 @@ export default function DashboardPage() {
           Tumhare GitHub repos aur unka latest Vercel deployment status.
         </p>
       </div>
+      <div className="rounded-2xl border border-emerald-900 bg-emerald-950/20 p-4 text-sm">
+        <p className="font-semibold text-emerald-300">🔓 Zero lock-in — disconnect/export anytime</p>
+        <p className="mt-1 text-xs leading-relaxed text-zinc-400">
+          Tumhara code tumhare GitHub pe hai, tumhare naam se. API keys kabhi bhi{" "}
+          <a href="/settings" className="text-emerald-400 underline">/settings</a> se hata sakte ho,
+          aur koi bhi project builder se ZIP me download kar sakte ho. MeraAI chhodna ho to kuch
+          khona nahi padega — migration tax zero.
+        </p>
+      </div>
       <DashboardClient />
     </div>
   );
