@@ -30,4 +30,15 @@ See `.env.example`. Never commit real values.
 Streaming chat, multi-file diff editing, one-click "deploy this repo to Vercel",
 per-app Supabase provisioning, usage quotas, team mode.
 
+## Market-driven moats (Phase 1)
+
+- **Transparent usage meter** — every AI reply shows tokens in/out + ₹0 (free-tier) cost, session total always visible. No opaque credit burn.
+- **Zero lock-in** — one-click full-project ZIP download + push to your own GitHub. Marketed in UI copy.
+- **Plan mode** (default on) — short approvable plan (pages, schema, components) before any code; Approve & Build / Edit plan. Kills prompt-loop token waste.
+- **Pricing page** — Free ₹0 forever + ONE flat Plus tier (₹ placeholder, "UPI coming soon"). No metered "effort" pricing, ever.
+- **Hinglish-first** — Hindi/Hinglish prompts natively understood (systemPrompt + UI).
+- **Mobile-first output rule** + **no fake/placeholder data** baked into the builder's training.
+- **SEO template pages** — every template has its own route (`/templates/[slug]`) with metadata.
+- **Dashboard** — deploy status + visible "disconnect/export anytime" affordance.
+
 <!-- deploy-trigger: initial Vercel build -->
