@@ -26,6 +26,7 @@ function Nav() {
         <div className="flex items-center gap-1">
           <Link href="/" className={link}>Builder</Link>
           <Link href="/templates" className={link}>Templates</Link>
+          <Link href="/pricing" className={link}>Pricing</Link>
           <Link href="/dashboard" className={link}>Dashboard</Link>
           <Link href="/settings" className={link}>Settings</Link>
         </div>
