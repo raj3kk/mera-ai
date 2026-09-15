@@ -29,3 +29,5 @@ See `.env.example`. Never commit real values.
 
 Streaming chat, multi-file diff editing, one-click "deploy this repo to Vercel",
 per-app Supabase provisioning, usage quotas, team mode.
+
+<!-- deploy-trigger: initial Vercel build -->
