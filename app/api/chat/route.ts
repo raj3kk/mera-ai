@@ -1,8 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
-import { SYSTEM_PROMPT } from "@/lib/ai/systemPrompt";
+import { SYSTEM_PROMPT, PLAN_PROMPT } from "@/lib/ai/systemPrompt";
 import { isOwner } from "@/lib/auth";
 
 const MODEL = "gemini-2.0-flash";
+
+export interface Usage {
+  prompt: number;
+  completion: number;
+  total: number;
+}
 
 export async function POST(req: NextRequest) {
   if (!isOwner()) {
@@ -36,6 +42,10 @@ export async function POST(req: NextRequest) {
     parts: [{ text: String(m.content ?? "").slice(0, 20000) }],
   }));
 
+  // Plan mode: short approvable plan first, full code only after approval.
+  const planMode = body?.planMode === true;
+  const instruction = planMode ? PLAN_PROMPT : SYSTEM_PROMPT;
+
   try {
     const r = await fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`,
@@ -43,7 +53,7 @@ export async function POST(req: NextRequest) {
         method: "POST",
         headers: { "Content-Type": "application/json", "x-goog-api-key": key },
         body: JSON.stringify({
-          system_instruction: { parts: [{ text: SYSTEM_PROMPT }] },
+          system_instruction: { parts: [{ text: instruction }] },
           contents,
           generationConfig: { temperature: 0.7, maxOutputTokens: 8192 },
         }),
@@ -61,7 +71,14 @@ export async function POST(req: NextRequest) {
     if (!text.trim()) {
       return NextResponse.json({ error: "Empty response from Gemini. Try again." }, { status: 200 });
     }
-    return NextResponse.json({ reply: text });
+    // Transparent usage meter — every generation reports its token cost.
+    const um = data?.usageMetadata;
+    const usage: Usage = {
+      prompt: um?.promptTokenCount ?? 0,
+      completion: um?.candidatesTokenCount ?? 0,
+      total: um?.totalTokenCount ?? 0,
+    };
+    return NextResponse.json({ reply: text, plan: planMode, usage });
   } catch {
     return NextResponse.json(
       { error: "Could not reach the Gemini API. Check your connection and key." },
