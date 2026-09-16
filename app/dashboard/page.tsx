@@ -1,6 +1,6 @@
 import { isOwner } from "@/lib/auth";
 import PasswordGate from "@/components/PasswordGate";
-import DashboardClient from "@/components/DashboardClient";
+import DashboardTabs from "@/components/DashboardTabs";
 
 export default function DashboardPage() {
   if (!isOwner()) return <PasswordGate next="/dashboard" />;
@@ -9,7 +9,7 @@ export default function DashboardPage() {
       <div>
         <h1 className="text-2xl font-bold">📊 Dashboard</h1>
         <p className="mt-1 text-sm text-zinc-500">
-          Tumhare GitHub repos aur unka latest Vercel deployment status.
+          Tumhare GitHub repos, Vercel deployments — aur tumhare 7 AI agents.
         </p>
       </div>
       <div className="rounded-2xl border border-emerald-900 bg-emerald-950/20 p-4 text-sm">
@@ -21,7 +21,7 @@ export default function DashboardPage() {
           khona nahi padega — migration tax zero.
         </p>
       </div>
-      <DashboardClient />
+      <DashboardTabs />
     </div>
   );
 }
