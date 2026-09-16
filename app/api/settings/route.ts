@@ -32,6 +32,8 @@ export async function GET() {
     hasGh: !!process.env.GH_TOKEN,
     hasVercel: !!process.env.VERCEL_TOKEN,
     hasSupabase: !!process.env.DEFAULT_SUPABASE_URL,
+    githubOauth: !!process.env.GITHUB_OAUTH_CLIENT_ID,
+    vercelOauth: !!process.env.VERCEL_OAUTH_CLIENT_ID,
   });
 }
 
@@ -109,6 +111,11 @@ export async function POST(req: NextRequest) {
       ...(keys.VERCEL_TOKEN ? { VERCEL_TOKEN: String(keys.VERCEL_TOKEN) } : {}),
       ...(keys.DEFAULT_SUPABASE_URL ? { DEFAULT_SUPABASE_URL: String(keys.DEFAULT_SUPABASE_URL) } : {}),
       ...(keys.DEFAULT_SUPABASE_ANON_KEY ? { DEFAULT_SUPABASE_ANON_KEY: String(keys.DEFAULT_SUPABASE_ANON_KEY) } : {}),
+      // OAuth app credentials (one-time setup — enables the 1-click Connect buttons above)
+      ...(keys.GITHUB_OAUTH_CLIENT_ID ? { GITHUB_OAUTH_CLIENT_ID: String(keys.GITHUB_OAUTH_CLIENT_ID) } : {}),
+      ...(keys.GITHUB_OAUTH_CLIENT_SECRET ? { GITHUB_OAUTH_CLIENT_SECRET: String(keys.GITHUB_OAUTH_CLIENT_SECRET) } : {}),
+      ...(keys.VERCEL_OAUTH_CLIENT_ID ? { VERCEL_OAUTH_CLIENT_ID: String(keys.VERCEL_OAUTH_CLIENT_ID) } : {}),
+      ...(keys.VERCEL_OAUTH_CLIENT_SECRET ? { VERCEL_OAUTH_CLIENT_SECRET: String(keys.VERCEL_OAUTH_CLIENT_SECRET) } : {}),
     };
     if (!envIdByKey.has("ENCRYPTION_KEY")) {
       desired.ENCRYPTION_KEY = randomBytes(32).toString("hex");

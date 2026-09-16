@@ -21,6 +21,24 @@ GitHub → Vercel auto-deploys. Your stack, your accounts, your code.
    - **Supabase URL + anon key** (optional defaults prefilled into generated apps)
 3. Save → keys are stored as **encrypted** Vercel env vars on this project and a redeploy is triggered (~1–2 min).
 
+## 1-click connects (zero friction)
+
+After first-run setup, `/settings` shows connection cards:
+
+- **GitHub / Vercel** — one-click OAuth. One-time prep: create a GitHub OAuth App
+  (`github.com/settings/developers` → New OAuth App, callback URL
+  `https://<your-app>/api/auth/github/callback`) and a Vercel Integration
+  (`vercel.com/integrations` → New Integration, redirect URL
+  `https://<your-app>/api/auth/vercel/callback`), then paste the Client ID/Secret
+  into the "OAuth app credentials" form once. After that it's a single click —
+  the token is exchanged server-side and saved as an encrypted env var
+  (`GH_TOKEN` / `VERCEL_TOKEN`). Manual PAT/token paste still works as fallback.
+- **Supabase / Gemini** — no OAuth exists for these keys, so the cards show a
+  short guided manual flow (dashboard links + exact clicks) with paste fields.
+
+All OAuth routes are owner-gated, CSRF `state` is verified via an httpOnly
+cookie, and tokens are never sent to the client or logged.
+
 ## Env vars
 
 See `.env.example`. Never commit real values.
